@@ -35,7 +35,6 @@ class AkisPetretzikisSpider(CrawlSpider):
         options = Options()
         options.add_argument("--headless")  # run headless
         options.add_argument("--kiosk")  # run in full screen mode
-        print(get_filepath(LOGS_DIRECTORY, SELENIUM_WEBDRIVER_LOGS))
         self.driver = webdriver.Chrome(executable_path=get_filepath('recipes/selenium_drivers', 'chromedriver'),
                                        options=options,
                                        service_log_path=LOGS_DIRECTORY + '/' + SELENIUM_WEBDRIVER_LOGS)
