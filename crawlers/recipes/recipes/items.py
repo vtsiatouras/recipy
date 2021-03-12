@@ -6,7 +6,9 @@
 from scrapy.item import Item, Field
 
 
-class RecipesItem(Item):
-    # define the fields for your item here like:
+class Recipe(Item):
+
+    url = Field()
     name = Field()
     description = Field()
+    category = Field()
