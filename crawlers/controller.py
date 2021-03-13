@@ -2,7 +2,7 @@ import os
 
 from scrapy import cmdline
 
-from recipes.recipes import LOGS_DIRECTORY
+from recipes.settings import LOGS_DIRECTORY
 
 
 def initiate_crawl():

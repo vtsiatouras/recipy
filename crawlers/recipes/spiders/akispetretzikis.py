@@ -9,9 +9,9 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from ..item_loaders import RecipyItemLoader as AkisPetretzikisItemLoader
-from crawlers import get_filepath
+from crawlers.tools import get_filepath
 from ..settings import LOGS_DIRECTORY, SELENIUM_WEBDRIVER_LOGS
+from ..item_loaders import RecipyItemLoader as AkisPetretzikisItemLoader
 
 
 class AkisPetretzikisSpider(CrawlSpider):

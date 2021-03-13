@@ -6,7 +6,13 @@
 #     https://docs.scrapy.org/en/latest/topics/settings.html
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-from crawlers import get_folder_path
+import os
+import sys
+
+root_path = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__))).split('crawlers')[0]
+sys.path.append(str(root_path))
+
+from crawlers.tools import get_folder_path
 
 BOT_NAME = 'recipes'
 
