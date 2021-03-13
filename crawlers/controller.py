@@ -2,8 +2,7 @@ import os
 
 from scrapy import cmdline
 
-from crawlers.recipes.tools import get_folder_path
-from recipes.settings import LOGS_DIRECTORY
+from recipes.recipes import LOGS_DIRECTORY
 
 
 def initiate_crawl():

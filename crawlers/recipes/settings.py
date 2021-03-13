@@ -6,7 +6,7 @@
 #     https://docs.scrapy.org/en/latest/topics/settings.html
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-from crawlers.recipes.tools import get_folder_path
+from crawlers import get_folder_path
 
 BOT_NAME = 'recipes'
 

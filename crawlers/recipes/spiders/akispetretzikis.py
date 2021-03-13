@@ -10,7 +10,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from ..item_loaders import RecipyItemLoader as AkisPetretzikisItemLoader
-from crawlers.recipes.tools import get_filepath
+from crawlers import get_filepath
 from ..settings import LOGS_DIRECTORY, SELENIUM_WEBDRIVER_LOGS
 
 
@@ -27,7 +27,7 @@ class AkisPetretzikisSpider(CrawlSpider):
         'https://akispetretzikis.com/el/categories/p/giortina'
     ]
 
-    rules = (Rule(LinkExtractor(allow=(), restrict_xpaths=('//div[@class="more"]/a',)), callback='parse', follow=True),)
+    rules = (Rule(LinkExtractor(allow=(), restrict_xpaths=('//div[@class="more"]/a',)), callback='parse'),)
 
     def __init__(self, *args, **kwargs):
         super(AkisPetretzikisSpider, self).__init__(*args, **kwargs)
