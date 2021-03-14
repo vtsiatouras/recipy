@@ -1,5 +1,5 @@
 from time import sleep
-from scrapy import Request
+from scrapy import Request, Selector
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 from selenium import webdriver
@@ -11,7 +11,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from crawlers.tools import get_filepath
 from ..settings import LOGS_DIRECTORY, SELENIUM_WEBDRIVER_LOGS
-from ..item_loaders import RecipyItemLoader as AkisPetretzikisItemLoader
+from ..item_loaders import (RecipyItemLoader as AkisPetretzikisItemLoader, IngredientItemLoader)
 
 
 class AkisPetretzikisSpider(CrawlSpider):
@@ -24,7 +24,7 @@ class AkisPetretzikisSpider(CrawlSpider):
         'https://akispetretzikis.com/el/categories/p/eidos-geymatos',
         'https://akispetretzikis.com/el/categories/p/ey-zhn',
         'https://akispetretzikis.com/el/categories/p/eidikh-diaita',
-        'https://akispetretzikis.com/el/categories/p/giortina'
+        'https://akispetretzikis.com/el/categories/p/giortina',
     ]
 
     rules = (Rule(LinkExtractor(allow=(), restrict_xpaths=('//div[@class="more"]/a',)), callback='parse'),)
@@ -59,7 +59,7 @@ class AkisPetretzikisSpider(CrawlSpider):
         # Expand page to view all recipes in this category page
         while True:
             try:
-                WebDriverWait(self.driver, 20).\
+                WebDriverWait(self.driver, 5).\
                     until(EC.element_to_be_clickable((By.XPATH, '//*[@id="next_page_link"]/a'))).click()
                 sleep(5)
             except TimeoutException:
@@ -81,8 +81,16 @@ class AkisPetretzikisSpider(CrawlSpider):
 
         item.add_value('url', response.url)
         item.add_xpath('name', '//*[@id="recipe"]//h1[@class="title"]/text()')
-        item.add_xpath('description', '//*[@id="recipe"]//div[@class="text"]//text()')
+        item.add_xpath('instructions', '//*[@id="recipe"]//div[@class="method"]//div[@class="text"]//text()')
         item.add_xpath('category', '//*[@id="recipe"]//div[@class="recipe-breadcrumb"]/a/text()')
+
+        ingredients = response.xpath('//*[@id="recipe"]//div[contains(@class, "mobile-ingredients ")]'
+                                     '/div[@class="text"]//li').getall()
+        for ingredient in ingredients:
+            ingredient = Selector(text=ingredient)
+            il = IngredientItemLoader(selector=ingredient)
+            il.add_xpath('ingredient', '//text()')
+            item.add_value('ingredients', il.load_item())
 
         return item.load_item()
 
