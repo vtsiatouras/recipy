@@ -10,5 +10,10 @@ class Recipe(Item):
 
     url = Field()
     name = Field()
-    description = Field()
+    instructions = Field()
     category = Field()
+    ingredients = Field()
+
+
+class Ingredient(Item):
+    ingredient = Field()
