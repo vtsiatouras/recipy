@@ -34,7 +34,7 @@ ROBOTSTXT_OBEY = True
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 2
+DOWNLOAD_DELAY = 1
 # amount of time (in secs) that the downloader will wait before timing out
 DOWNLOAD_TIMEOUT = 600
 
@@ -70,6 +70,20 @@ COOKIES_DEBUG = False
 #DOWNLOADER_MIDDLEWARES = {
 #    'recipes.middlewares.RecipesDownloaderMiddleware': 543,
 #}
+
+# amount of time (in secs) that the downloader will wait before timing out
+DOWNLOAD_TIMEOUT = 600
+
+RANDOMIZE_DOWNLOAD_DELAY = True
+
+DOWNLOADER_STATS = True
+
+DOWNLOAD_FAIL_ON_DATALOSS = False
+
+# RetryMiddleware
+RETRY_ENABLED = True
+RETRY_TIMES = 1
+RETRY_HTTP_CODES = [500, 502, 503, 504, 522, 524, 408, 429]
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
