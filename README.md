@@ -29,3 +29,10 @@ pipenv shell
 ```
 
 All commands from this point forward require the python environment to be enabled.
+
+## Execution
+
+```bash
+cd crawlers
+python controller.py
+```
