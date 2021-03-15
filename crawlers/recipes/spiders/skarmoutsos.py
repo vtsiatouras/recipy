@@ -1,9 +1,11 @@
 import time
 
+from scrapy import Request, Selector
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 
 from ..item_loaders import RecipyItemLoader as SkarmoutsosItemLoader
+from ..item_loaders import (RecipyItemLoader as SkarmoutsosItemLoader, IngredientItemLoader)
 
 
 class SkarmoutsosSpider(CrawlSpider):
@@ -21,27 +23,22 @@ class SkarmoutsosSpider(CrawlSpider):
 
 
     def parse(self, response):
+        start_tm = time.time()
+
         item = SkarmoutsosItemLoader(response=response)
+
+        item.add_value('url', response.url)
         item.add_xpath('name', '//*[@id="recipeMain"]/div/h1/text()')
-        return item.load_item()
-
-
-        # start_tm = time.time()
-        # page_recipies = response.xpath('//*[@id="recipesCategArea"]/div[*]')
-        # for recipie in page_recipies:
-        #     yield {
-        #         'title': recipie.css('a span.recipeTitle::text').get(),
-        #         'url': recipie.css('a::attr(href)').get()
-        #     }
+        item.add_xpath('category', '//*[@id="recCategoryBox"]/a/span/text()')
+        item.add_xpath('instructions', '//*[@id="recipeMainRight"]/div[1]/p//text()')
         
+        ingredients = response.xpath('//*[@id="ingredBox"]/*/li').getall()
+        for ingredient in ingredients:
+            ingredient = Selector(text=ingredient)
+            il = IngredientItemLoader(selector=ingredient)
+            il.add_xpath('ingredient', '//text()')
+            item.add_value('ingredients', il.load_item())
 
-        # next_route = response.xpath('//*[@class="next"]/@href').get()
-        # print("Next Route ~~> ", next_route)
-        # if next_route is not None:
-        #     next_page = "https://www.dimitrisskarmoutsos.gr/" + next_route
-        #     next_page = response.urljoin(next_page)
-        #     yield scrapy.Request(next_page, callable=self.parse)
-
-
-        # duration = time.time() - start_tm
-        # print("Complete. Took: {:.2f}".format(duration))
+        duration = time.time() - start_tm
+        print("Complete. Duration: {:.2f}".format(duration))
+        return item.load_item()

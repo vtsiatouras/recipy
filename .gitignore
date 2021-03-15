@@ -133,5 +133,6 @@ dmypy.json
 .idea
 
 # Crawled files
-crawlers/recipes/recipes/skarmoutos.csv
-
+*.csv
+*.json
+*.xml
