@@ -1,6 +1,13 @@
 # recipy
 A crawler framework that scrapes data from famous Greek cuisine sites.
 
+Current target sites:
+
+- [akispetretzikis.com](https://akispetretzikis.com)
+- [dimitrisskarmoutsos.gr](https://www.dimitrisskarmoutsos.gr)
+- [suntages.me](https://www.syntages.me/syntages)
+- [sintagesmamas.com](https://www.sintagesmamas.com)
+
 ## Installation
 
 Python 3.7+
@@ -36,3 +43,6 @@ All commands from this point forward require the python environment to be enable
 cd crawlers
 python controller.py
 ```
+For running each crawler saperately run:
+
+`scrapy crawl <crawler-name> -o <output-file>.csv`
