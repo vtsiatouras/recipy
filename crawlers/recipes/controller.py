@@ -2,7 +2,6 @@ import os
 
 from scrapy import cmdline
 
-from crawlers.recipes.tools import get_folder_path
 from recipes.settings import LOGS_DIRECTORY
 
 
@@ -13,7 +12,9 @@ def initiate_crawl():
     except FileExistsError:
         pass
     # The execution method below is not recommended, for testing purposes only
-    cmdline.execute("scrapy crawl akispetretzikis -o results.csv --set delimiter=\",\"".split())
+    # cmdline.execute("scrapy crawl akispetretzikis -o results.csv --set delimiter=\",\"".split())
+    
+    cmdline.execute("scrapy crawl skarmoutsos".split())
 
 
 if __name__ == '__main__':

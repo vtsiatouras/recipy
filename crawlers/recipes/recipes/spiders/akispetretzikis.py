@@ -10,7 +10,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from ..item_loaders import RecipyItemLoader as AkisPetretzikisItemLoader
-from crawlers.recipes.tools import get_filepath
+from recipes.tools import get_filepath
 from ..settings import LOGS_DIRECTORY, SELENIUM_WEBDRIVER_LOGS
 
 

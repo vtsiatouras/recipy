@@ -132,3 +132,6 @@ dmypy.json
 .vscode
 .idea
 
+# Crawled files
+crawlers/recipes/recipes/skarmoutos.csv
+

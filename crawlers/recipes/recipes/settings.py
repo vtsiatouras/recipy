@@ -6,7 +6,7 @@
 #     https://docs.scrapy.org/en/latest/topics/settings.html
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-from crawlers.recipes.tools import get_folder_path
+from recipes.tools import get_folder_path
 
 BOT_NAME = 'recipes'
 
@@ -16,7 +16,7 @@ NEWSPIDER_MODULE = 'recipes.spiders'
 DUPEFILTER_DEBUG = False
 
 # Logs
-LOGS_DIRECTORY = get_folder_path('recipes/logs')
+LOGS_DIRECTORY = get_folder_path('logs')
 SELENIUM_WEBDRIVER_LOGS = 'chrome_webdriver.log'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
