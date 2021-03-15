@@ -5,12 +5,12 @@ from scrapy.linkextractors import LinkExtractor
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from crawlers.tools import get_filepath
-from ..settings import LOGS_DIRECTORY, SELENIUM_WEBDRIVER_LOGS
+from ..settings import LOGS_DIRECTORY, SELENIUM_FIREFOX_WEBDRIVER_LOGS
 from ..item_loaders import (RecipyItemLoader as AkisPetretzikisItemLoader, IngredientItemLoader)
 
 
@@ -35,9 +35,9 @@ class AkisPetretzikisSpider(CrawlSpider):
         options = Options()
         options.add_argument("--headless")  # run headless
         options.add_argument("--kiosk")  # run in full screen mode
-        self.driver = webdriver.Chrome(executable_path=get_filepath('recipes/selenium_drivers', 'chromedriver'),
-                                       options=options,
-                                       service_log_path=LOGS_DIRECTORY + '/' + SELENIUM_WEBDRIVER_LOGS)
+        self.driver = webdriver.Firefox(executable_path=get_filepath('recipes/selenium_drivers', 'geckodriver'),
+                                        options=options,
+                                        service_log_path=LOGS_DIRECTORY + '/' + SELENIUM_FIREFOX_WEBDRIVER_LOGS)
 
     def parse(self, response, **kwargs):
         """

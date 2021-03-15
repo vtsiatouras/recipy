@@ -23,7 +23,7 @@ DUPEFILTER_DEBUG = False
 
 # Logs
 LOGS_DIRECTORY = get_folder_path('recipes/logs')
-SELENIUM_WEBDRIVER_LOGS = 'chrome_webdriver.log'
+SELENIUM_FIREFOX_WEBDRIVER_LOGS = 'firefox_webdriver.log'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = "Scrapy/VERSION (+https://scrapy.org)"
