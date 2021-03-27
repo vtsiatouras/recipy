@@ -1,10 +1,7 @@
-import time
-
-from scrapy import Request, Selector
+from scrapy import Selector
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 
-from ..item_loaders import RecipyItemLoader as SkarmoutsosItemLoader
 from ..item_loaders import (RecipyItemLoader as SkarmoutsosItemLoader, IngredientItemLoader)
 
 
@@ -21,10 +18,7 @@ class SkarmoutsosSpider(CrawlSpider):
         Rule(LinkExtractor(allow=(), restrict_xpaths=('//*[@class="recipeBox"]/a[1]',)), callback='parse')
     )
 
-
-    def parse(self, response):
-        start_tm = time.time()
-
+    def parse(self, response, **kwargs):
         item = SkarmoutsosItemLoader(response=response)
 
         item.add_value('url', response.url)
@@ -39,6 +33,4 @@ class SkarmoutsosSpider(CrawlSpider):
             il.add_xpath('ingredient', '//text()')
             item.add_value('ingredients', il.load_item())
 
-        duration = time.time() - start_tm
-        print("Complete. Duration: {:.2f}".format(duration))
         return item.load_item()
