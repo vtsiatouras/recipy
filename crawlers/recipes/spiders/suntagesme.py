@@ -1,6 +1,6 @@
 import time
 
-from scrapy import Request, Selector
+from scrapy import Selector
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 
@@ -20,8 +20,7 @@ class SuntagesmeSpider(CrawlSpider):
         Rule(LinkExtractor(allow=(), restrict_xpaths=('//*[@class="si_list1"]/a[1]',)), callback='parse')
     )
 
-
-    def parse(self, response):
+    def parse(self, response, **kwargs):
         item = SuntagesmeItemLoader(response=response)
 
         item.add_value('url', response.url)
