@@ -1,5 +1,3 @@
-import time
-
 from scrapy import Selector
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
@@ -30,7 +28,7 @@ class SuntagesmeSpider(CrawlSpider):
         
         ingredients = response.xpath('//*[@class="si_ylika_yliko3"]')
         for ingr in ingredients:
-            # construct the ingridient to a text. structure: <text> <a> <text>
+            # construct the ingredient to a text. structure: <text> <a> <text>
             ingredient = ingr.xpath('text()').get()
             ingredient += ingr.xpath('a/text()').get()
             ingredient += ingr.xpath('text()')[1].get() if len(ingr.xpath('text()')) > 1 else ""
