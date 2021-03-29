@@ -132,3 +132,7 @@ dmypy.json
 .vscode
 .idea
 
+# Crawled files
+*.csv
+*.json
+*.xml
