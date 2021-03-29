@@ -136,3 +136,5 @@ dmypy.json
 *.csv
 *.json
 *.xml
+
+frontend/node_modules
