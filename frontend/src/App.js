@@ -1,10 +1,24 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import Container from "@material-ui/core/Container";
+import RecipeCard from "./components/RecipeCard";
+
+import arniPic from './assets/arni.jpg'
+import paidakiaPic from './assets/paidakia.jpg'
+import kotsiPic from './assets/kotsi.jpg';
+
+function Cover(size) {
+    return (
+        <div className="cover" style={{paddingTop: size + "%"}}>
+            <h3> Welcome to </h3>
+            <h1> Reci<span className="sub-color">Py</span></h1>
+            <p> Find different recipes from multiple sites.</p>
+            <SearchBar/>
+        </div>
+    );
+}
 
 function SearchBar() {
     return (
@@ -24,21 +38,32 @@ function SearchBar() {
     )
 }
 
-function Cover() {
+
+function Body() {
     return (
-        <div className="cover ">
-            <h3> Welcome to </h3>
-            <h1> Reci<span className="sub-color">Py</span></h1>
-            <p> Find different recipes from multiple sites.</p>
-            <SearchBar/>
-        </div>
-    );
+        <Container className="body-container">
+            <Grid container spacing={2}>
+                <Grid item xs={4}>
+                    <RecipeCard img={kotsiPic} title={"Kotsi"}/>
+                </Grid>
+                <Grid item xs={4}>
+                    <RecipeCard img={paidakiaPic} title={"Paidakia"}/>
+                </Grid>
+                <Grid item xs={4}>
+                    <RecipeCard img={arniPic} title={"Arni"}/>
+                </Grid>
+            </Grid>
+        </Container>
+    )
+
 }
 
 function App() {
+    const [coverSize, setCoverSize] = useState(15)
     return (
         <div>
-            <Cover/>
+            <Cover size={coverSize}/>
+            <Body/>
         </div>
     );
 }

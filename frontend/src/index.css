@@ -9,12 +9,24 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #393e46;
   color: #fff;
+}
 
+.cover {
+  text-align: center;
+  padding-top: 15%;
+  padding-bottom: 4%;
+  height: 45%;
+  background-image: url("./assets/background.jpg");
 }
 
 .sub-color {
   /*color: #96bb7c*/
   color: #86b300;
+}
+
+.body-container {
+  margin: 3% 0;
+  width: 100%;
 }
 
 code {
