@@ -1,39 +1,54 @@
 /* Selected palette: https://colorhunt.co/palette/2763*/
 
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: #393e46;
-  color: #fff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #393e46;
+    color: #fff;
 }
 
 .cover {
-  text-align: center;
-  padding-top: 15%;
-  padding-bottom: 4%;
-  height: 45%;
-  background-image: url("./assets/background.jpg");
+    text-align: center;
+    padding-top: 15%;
+    padding-bottom: 4%;
+    height: 45%;
+    background-image: url("./assets/background.jpg");
 }
 
 .sub-color {
-  /*color: #96bb7c*/
-  color: #86b300;
+    /*color: #96bb7c*/
+    color: #86b300;
 }
 
 .body-container {
-  margin: 2% 0;
-  width: 100%;
+    margin: 2% 0;
+    width: 100%;
 }
 
 .some-space-please {
-  margin-bottom: 2%;
+    margin-bottom: 2%;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.my-modal {
+    margin-top: 2%;
+
+    max-height: 95vh;
+    overflow: auto;
+}
+
+.center-modal {
+    margin: 0 auto;
+    width: 85%;
+    padding: 1% 5%;
+    background-color: #282c34;
+}
+
+.modal-image {
+    border-radius: 50%;
+    position: relative;
+    top: 0%;
 }
