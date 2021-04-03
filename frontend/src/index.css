@@ -50,5 +50,9 @@ body {
 .modal-image {
     border-radius: 50%;
     position: relative;
-    top: 0%;
+    top: 0;
+}
+
+.spinner-wrapper{
+    margin-top: 10%;
 }

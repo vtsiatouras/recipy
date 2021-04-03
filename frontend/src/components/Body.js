@@ -11,24 +11,27 @@ import arniPic from "../assets/arni.jpg";
 
 
 function ResultsInfo(props){
-    const size = props.size;
+    const {search, size} = props;
+    const body = search ?
+        <div>Found <span className="sub-color">{size}</span> tasty recipes</div> : <div> Some random results </div>;
     return (
-        <Typography variant="h4" component="h4">
-            Found <span className="sub-color">{size}</span> tasty recipes
+        <Typography variant="h4" component="h4" className="text-center">
+            {body}
         </Typography>
     )
 }
 
 function Body(props) {
-    const recipes = props.recipes;
+    const {search, recipes} = props;
+    console.log("rendering body with: ", search);
 
     const recipesContent = recipes.map(recipe => {
-        // to be deleted!
+        // --to-be-deleted
         const imgId = Math.floor(Math.random() * 3);
         recipe.img = imgId === 0 ? paidakiaPic : imgId === 1 ? arniPic : kotsiPic;
 
         return (
-            <Grid item lg={3} md={4} sm={6} xs={12}>
+            <Grid item lg={3} md={4} sm={6} xs={12} key={recipe.id}>
                 <RecipeCard recipe={recipe}/>
             </Grid>
         )
@@ -36,10 +39,8 @@ function Body(props) {
 
     return (
         <Container className="body-container">
-
-            <div className="some-space-please"> <ResultsInfo size={recipes.length}/></div>
+            <div className="some-space-please"> <ResultsInfo search={search} size={recipes.length}/></div>
             <Grid container spacing={2}>
-
                 {recipesContent}
             </Grid>
         </Container>
