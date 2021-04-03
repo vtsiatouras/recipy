@@ -5,8 +5,6 @@ import Body from "./components/Body";
 import axios from "axios";
 
 import data from './assets/recipe_data_min'
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Grid from "@material-ui/core/Grid";
 import CenteredSpinner from "./components/CenteredSpinner";
 
 
@@ -26,6 +24,7 @@ function App() {
         setRecipes([]);
         setSpinner(true);
 
+        // request!
         // const responce = await axios.get('api/recipes', { params: { search: searchQuery}});
         // setRecipes(responce.data);
         // setSearch(true);

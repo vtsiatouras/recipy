@@ -11,7 +11,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import Container from "@material-ui/core/Container";
 import Alert from '@material-ui/lab/Alert';
-import Button from "@material-ui/core/Button";
+
 
 function RecipeModal(props) {
     const {open, setClose, recipe} = props;
