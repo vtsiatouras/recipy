@@ -18,7 +18,7 @@ class RecipyItemLoader(ItemLoader):
     name_out = Compose(TakeFirst(), lambda x: x.strip())
     category_out = Compose(TakeFirst(), lambda x: x.strip())
     instructions_in = MapCompose(lambda x: x.strip())
-    instructions_out = Compose(Join(), lambda x: x.strip())
+    instructions_out = Compose(Join(), lambda x: x.strip() if x else None)
 
     ingredients_in = Identity()
     ingredients_out = Compose(lambda ingredients: [dict(i) for i in ingredients if i])
