@@ -10,10 +10,15 @@ class ArgiroBarbarigouSpider(CrawlSpider):
     name = "argirobarbarigou"
 
     start_urls = [
+        'https://www.argiro.gr/recipe-category/pota-rofimata/'
         'https://www.argiro.gr/recipe-category/vasiko-sistatiko/',
+        'https://www.argiro.gr/recipe-category/nisiotikes-sintages/',
+        'https://www.argiro.gr/recipe-category/pites-almires-tartes/',
+        'https://www.argiro.gr/recipe-category/gluka/',
+        'https://www.argiro.gr/recipe-category/eidiki-diatrofi/',
+        'https://www.argiro.gr/recipe-category/nisiotikes-sintages/'
     ]
 
-    # callback='parse_category',
     rules = (
         # taking the link for the categories
         Rule(
@@ -29,17 +34,6 @@ class ArgiroBarbarigouSpider(CrawlSpider):
         ),
     )
 
-    # DEPRECATED
-    def parse_category(self, response):
-        current_category = response.xpath('//h1/text()').get().split(' ')[0]  # TODO: better parse here
-        recipes_url = response.xpath('//*[@class="tax-list-item uk-text-center matchHeight"]/a[1]/@href')
-        for r_url in recipes_url:
-            yield response.follow(r_url, callback=self.parse, meta={"current_category": current_category})
-
-        next_page = response.xpath('//*[@class="next-set-posts"]/a/@href').get()
-        if next_page is not None:
-            yield response.follow(next_page, callback=self.parse_category)
-
     def parse(self, response, **kwargs):
         item = ArgiroBarbarigouItemLoader(response=response)
 
@@ -50,7 +44,11 @@ class ArgiroBarbarigouSpider(CrawlSpider):
         item.add_value('url', response.url)
         item.add_xpath('name', '//h1/span/text()')
         item.add_value('category', category)
-        item.add_xpath('instructions', '//*[@itemprop="recipeInstructions"]/p/text()')
+        item.add_xpath('instructions',
+                       '//*[@itemprop="recipeInstructions"]/*[not(@class="theiaStickySidebar")]//text()')
+        # image url for later use
+        img_path = response.xpath('//*[@itemprop="image"]/@src').get()
+        print("Image Path: ", img_path)
 
         ingredients = response.xpath('//*[@itemprop="recipeIngredient"]').getall()
         for ingredient in ingredients:
@@ -60,5 +58,3 @@ class ArgiroBarbarigouSpider(CrawlSpider):
             item.add_value('ingredients', il.load_item())
 
         return item.load_item()
-
-

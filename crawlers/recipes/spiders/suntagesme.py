@@ -14,9 +14,11 @@ class SuntagesmeSpider(CrawlSpider):
     ]
     
     rules = (
-        Rule(LinkExtractor(allow=(), restrict_xpaths=('//*[@id="syntages_selides"]/div/div[1]/div[2]/a[1]',))),
+        Rule(LinkExtractor(allow=(), restrict_xpaths=('//*//div[@class="pag2_n pag2_n_r"]/a[1]',))),
         Rule(LinkExtractor(allow=(), restrict_xpaths=('//*[@class="si_list1"]/a[1]',)), callback='parse')
     )
+
+    base_url = 'https://www.syntages.me'
 
     def parse(self, response, **kwargs):
         item = SuntagesmeItemLoader(response=response)
@@ -25,14 +27,14 @@ class SuntagesmeSpider(CrawlSpider):
         item.add_xpath('name', '//*[@class="si_titlos"]/h1/text()')
         item.add_xpath('category', '//*[@id="main"]/div[1]/div/ul/li[2]/a/text()')
         item.add_xpath('instructions', '//*[@itemprop="recipeInstructions"]/ul/li/text()')
-        
-        ingredients = response.xpath('//*[@class="si_ylika_yliko3"]')
-        for ingr in ingredients:
-            # construct the ingredient to a text. structure: <text> <a> <text>
-            ingredient = ingr.xpath('text()').get()
-            ingredient += ingr.xpath('a/text()').get()
-            ingredient += ingr.xpath('text()')[1].get() if len(ingr.xpath('text()')) > 1 else ""
 
+        # image url for later use
+        # in this site it can be None in some recipes cuz it may has video instead of image
+        img_path = response.xpath('//*[@class="si_photo tac"]/img/@src').get()
+        print("Image Path: ", img_path)
+
+        ingredients = response.xpath('//*[@class="si_ylika_holder"]//li').getall()
+        for ingredient in ingredients:
             ingredient = Selector(text=ingredient)
             il = IngredientItemLoader(selector=ingredient)
             il.add_xpath('ingredient', '//text()')
