@@ -18,6 +18,7 @@ class SkarmoutsosSpider(CrawlSpider):
         Rule(LinkExtractor(allow=(), restrict_xpaths=('//*[@class="recipeBox"]/a[1]',)), callback='parse')
     )
 
+
     base_url = 'https://www.dimitrisskarmoutsos.gr/'
 
     def parse(self, response, **kwargs):
