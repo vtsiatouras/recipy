@@ -11,6 +11,11 @@ import sys
 
 root_path = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__))).split('crawlers')[0]
 sys.path.append(str(root_path))
+sys.path.append(str(root_path) + '/backend')
+
+import django
+os.environ['DJANGO_SETTINGS_MODULE'] = 'backend.conf.settings'
+django.setup()
 
 from crawlers.tools import get_folder_path
 
@@ -93,9 +98,10 @@ RETRY_HTTP_CODES = [500, 502, 503, 504, 522, 524, 408, 429]
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'recipes.pipelines.RecipesPipeline': 300,
-#}
+ITEM_PIPELINES = {
+    'recipes.pipelines.RecipesPipeline': 200,
+    'recipes.pipelines.DBStoragePipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
