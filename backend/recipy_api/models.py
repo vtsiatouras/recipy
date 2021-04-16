@@ -37,7 +37,7 @@ class Recipe(AutoCreatedUpdatedModel):
     name = models.CharField(max_length=150)
     category = models.CharField(max_length=50)
     instructions = models.TextField()
-    image_url = models.URLField()
+    image_url = models.URLField(null=True, blank=True)
     site = models.ForeignKey(Site, on_delete=models.CASCADE, related_name='recipes_sites')
     ingredients = models.ManyToManyField(Ingredient, related_name='recipes_ingredients')
 
