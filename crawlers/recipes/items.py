@@ -7,12 +7,12 @@ from scrapy.item import Item, Field
 
 
 class Recipe(Item):
-
-    url = Field()
+    recipe_url = Field()
     name = Field()
     instructions = Field()
     category = Field()
     ingredients = Field()
+    image_url = Field()
 
 
 class Ingredient(Item):

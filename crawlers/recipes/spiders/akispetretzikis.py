@@ -29,6 +29,8 @@ class AkisPetretzikisSpider(CrawlSpider):
 
     rules = (Rule(LinkExtractor(allow=(), restrict_xpaths=('//div[@class="more"]/a',)), callback='parse'),)
 
+    base_url = 'https://akispetretzikis.com/'
+
     def __init__(self, *args, **kwargs):
         super(AkisPetretzikisSpider, self).__init__(*args, **kwargs)
         # create a new instance of Chrome driver
@@ -79,10 +81,14 @@ class AkisPetretzikisSpider(CrawlSpider):
         """
         item = AkisPetretzikisItemLoader(response=response)
 
-        item.add_value('url', response.url)
+        item.add_value('recipe_url', response.url)
         item.add_xpath('name', '//*[@id="recipe"]//h1[@class="title"]/text()')
         item.add_xpath('instructions', '//*[@id="recipe"]//div[@class="method"]//div[@class="text"]//text()')
         item.add_xpath('category', '//*[@id="recipe"]//div[@class="recipe-breadcrumb"]/a/text()')
+
+        image_url = response.xpath('//div[@class="recipes-wrapper"]//div[@class="media ipad_media"]'
+                                   '//img[@class="img-responsive"]/@src').get()
+        item.add_value('image_url', image_url if image_url else None)
 
         ingredients = response.xpath('//*[@id="recipe"]//div[contains(@class, "mobile-ingredients ")]'
                                      '/div[@class="text"]//li').getall()
