@@ -20,18 +20,12 @@ import django
 os.environ['DJANGO_SETTINGS_MODULE'] = 'api.conf.settings'
 django.setup()
 
-from crawlers.tools import get_folder_path
-
 BOT_NAME = 'recipes'
 
 SPIDER_MODULES = ['recipes.spiders']
 NEWSPIDER_MODULE = 'recipes.spiders'
 
 DUPEFILTER_DEBUG = False
-
-# Logs
-LOGS_DIRECTORY = get_folder_path('recipes/logs')
-SELENIUM_FIREFOX_WEBDRIVER_LOGS = 'firefox_webdriver.log'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = "Scrapy/VERSION (+https://scrapy.org)"

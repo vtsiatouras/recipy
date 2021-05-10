@@ -9,8 +9,7 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from crawlers.tools import get_filepath
-from ..settings import LOGS_DIRECTORY, SELENIUM_FIREFOX_WEBDRIVER_LOGS
+from ..tools import get_filepath
 from ..item_loaders import (RecipyItemLoader as AkisPetretzikisItemLoader, IngredientItemLoader)
 
 
@@ -37,9 +36,9 @@ class AkisPetretzikisSpider(CrawlSpider):
         options = Options()
         options.add_argument("--headless")  # run headless
         options.add_argument("--kiosk")  # run in full screen mode
-        self.driver = webdriver.Firefox(executable_path=get_filepath('recipes/selenium_drivers', 'geckodriver'),
-                                        options=options,
-                                        service_log_path=LOGS_DIRECTORY + '/' + SELENIUM_FIREFOX_WEBDRIVER_LOGS)
+        print(get_filepath('recipes/selenium_drivers', 'geckodriver'))
+        self.driver = webdriver.Firefox(executable_path=get_filepath('/selenium_drivers', 'geckodriver'),
+                                        options=options)
 
     def parse(self, response, **kwargs):
         """
