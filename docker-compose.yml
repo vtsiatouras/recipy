@@ -1,0 +1,63 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:12.5-alpine
+    container_name: db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=${RECIPY_DATABASE_NAME}
+      - POSTGRES_USER=${RECIPY_DATABASE_USER}
+      - POSTGRES_PASSWORD=${RECIPY_DATABASE_PASSWORD}
+    env_file:
+      - .env
+    ports:
+      - "5433:5432"
+
+  crawlers:
+    container_name: crawlers
+    build:
+      context: ./crawlers
+      dockerfile: Dockerfile
+    command: bash -c "
+        python /app/api/manage.py migrate
+        && ./deploy.sh
+      "
+    depends_on:
+      - db
+    env_file:
+      - .env
+    environment:
+      - RECIPY_DATABASE_NAME=${RECIPY_DATABASE_NAME}
+      - RECIPY_DATABASE_USER=${RECIPY_DATABASE_USER}
+      - RECIPY_DATABASE_PASSWORD=${RECIPY_DATABASE_PASSWORD}
+      - RECIPY_DATABASE_HOST=${RECIPY_DATABASE_HOST}
+      - RECIPY_DATABASE_PORT=${RECIPY_DATABASE_PORT}
+    ports:
+      - "6800:6800"
+    volumes:
+      - ./scrapyd:/var/lib/scrapyd
+
+  api:
+    container_name: api
+    build:
+      context: ./crawlers
+      dockerfile: Dockerfile
+    command: bash -c "python /app/api/manage.py migrate
+      && python /app/api/manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    env_file:
+      - .env
+    environment:
+      - RECIPY_DATABASE_NAME=${RECIPY_DATABASE_NAME}
+      - RECIPY_DATABASE_USER=${RECIPY_DATABASE_USER}
+      - RECIPY_DATABASE_PASSWORD=${RECIPY_DATABASE_PASSWORD}
+      - RECIPY_DATABASE_HOST=${RECIPY_DATABASE_HOST}
+      - RECIPY_DATABASE_PORT=${RECIPY_DATABASE_PORT}
+
+volumes:
+  postgres_data:

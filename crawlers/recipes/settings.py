@@ -9,10 +9,16 @@
 import os
 import sys
 
+from pathlib import Path
+
 root_path = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__))).split('crawlers')[0]
 sys.path.append(str(root_path))
+DJANGO_DIR = str(Path(__file__).resolve().parent.parent) + '/api'
+sys.path.append(DJANGO_DIR)
 
-from crawlers.tools import get_folder_path
+import django
+os.environ['DJANGO_SETTINGS_MODULE'] = 'api.conf.settings'
+django.setup()
 
 BOT_NAME = 'recipes'
 
@@ -20,10 +26,6 @@ SPIDER_MODULES = ['recipes.spiders']
 NEWSPIDER_MODULE = 'recipes.spiders'
 
 DUPEFILTER_DEBUG = False
-
-# Logs
-LOGS_DIRECTORY = get_folder_path('recipes/logs')
-SELENIUM_FIREFOX_WEBDRIVER_LOGS = 'firefox_webdriver.log'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = "Scrapy/VERSION (+https://scrapy.org)"
@@ -93,9 +95,10 @@ RETRY_HTTP_CODES = [500, 502, 503, 504, 522, 524, 408, 429]
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'recipes.pipelines.RecipesPipeline': 300,
-#}
+ITEM_PIPELINES = {
+    'recipes.pipelines.RecipesPipeline': 200,
+    'recipes.pipelines.DBStoragePipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html

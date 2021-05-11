@@ -34,6 +34,8 @@ class ArgiroBarbarigouSpider(CrawlSpider):
         ),
     )
 
+    base_url = 'https://www.argiro.gr'
+
     def parse(self, response, **kwargs):
         item = ArgiroBarbarigouItemLoader(response=response)
 
@@ -41,14 +43,14 @@ class ArgiroBarbarigouSpider(CrawlSpider):
         recipe_path = response.xpath('//*[@typeof="v:Breadcrumb"]')
         category = recipe_path[len(recipe_path) - 1].xpath('a/text()').get()
 
-        item.add_value('url', response.url)
+        item.add_value('recipe_url', response.url)
         item.add_xpath('name', '//h1/span/text()')
         item.add_value('category', category)
         item.add_xpath('instructions',
                        '//*[@itemprop="recipeInstructions"]/*[not(@class="theiaStickySidebar")]//text()')
-        # image url for later use
+
         img_path = response.xpath('//*[@itemprop="image"]/@src').get()
-        print("Image Path: ", img_path)
+        item.add_value('image_url', img_path if img_path else None)
 
         ingredients = response.xpath('//*[@itemprop="recipeIngredient"]').getall()
         for ingredient in ingredients:
