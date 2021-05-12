@@ -8,6 +8,7 @@ def initiate_crawl():
     # cmdline.execute("scrapy crawl skarmoutsos -o skarmoutsos_results.csv --set delimiter=\",\"".split())
     # cmdline.execute("scrapy crawl suntagesme -o suntagesme_results.csv --set delimiter=\",\"".split())
     # cmdline.execute("scrapy crawl argirobarbarigou -o argirobarbarigou_results.csv --set delimiter=\",\"".split())
+    # cmdline.execute("scrapy crawl sintagesmamas -o sintagesmamas_results.csv --set delimiter=\",\"".split())
 
 
 if __name__ == '__main__':

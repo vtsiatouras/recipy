@@ -9,16 +9,16 @@ class RecipyItemLoader(ItemLoader):
 
     default_item_class = Recipe
     default_selector_class = Selector
-    default_input_processor = MapCompose(lambda x: x.strip())
+    default_input_processor = MapCompose(lambda x: clean_text(x))
     default_output_processor = Compose(TakeFirst())
     response_status_in = Identity()
     response_status_out = Compose(TakeFirst())
 
     # Add function to clean text
-    name_out = Compose(TakeFirst(), lambda x: x.strip())
-    category_out = Compose(TakeFirst(), lambda x: x.strip())
-    instructions_in = MapCompose(lambda x: x.strip())
-    instructions_out = Compose(Join(), lambda x: x.strip() if x else None)
+    name_out = Compose(TakeFirst(), lambda x: clean_text(x))
+    category_out = Compose(TakeFirst(), lambda x: clean_text(x))
+    instructions_in = MapCompose(lambda x: clean_text(x))
+    instructions_out = Compose(Join(), lambda x: clean_text(x) if x else None)
 
     ingredients_in = Identity()
     ingredients_out = Compose(lambda ingredients: [dict(i) for i in ingredients if i])
@@ -27,5 +27,10 @@ class RecipyItemLoader(ItemLoader):
 class IngredientItemLoader(ItemLoader):
     default_item_class = Ingredient
     default_selector_class = Selector
-    ingredient_in = MapCompose(lambda x: x.strip())
-    ingredient_out = Compose(Join(), lambda x: x.strip())
+    ingredient_in = MapCompose(lambda x: clean_text(x))
+    ingredient_out = Compose(Join(), lambda x: clean_text(x))
+
+
+def clean_text(txt):
+    txt = txt.replace(u'\xa0', ' ').strip()
+    return txt
