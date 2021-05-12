@@ -32,5 +32,4 @@ class IngredientItemLoader(ItemLoader):
 
 
 def clean_text(txt):
-    txt = txt.replace(u'\xa0', ' ').strip()
-    return txt
+    return txt.replace(u'\xa0', ' ').strip()
