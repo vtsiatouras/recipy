@@ -43,7 +43,7 @@ class DBStoragePipeline:
                 stored_recipe = recipe_model.objects.create(url=item['recipe_url'],
                                                             name=item['name'],
                                                             category=item['category'],
-                                                            instructions=item['instructions'],
+                                                            instructions=item.get('instructions', None),
                                                             image_url=item.get('image_url', None),
                                                             site=site_obj)
 
