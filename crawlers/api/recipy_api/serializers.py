@@ -69,7 +69,7 @@ class QuerySerializer(BaseSerializer):
         site_ids_data = data['site_ids']
         try:
             data['site_ids'] = [int(site_id) for site_id in site_ids_data.split(',')]
-        except ValueError as e:
-            raise ValidationError(e)
-        data._mutable = False
-        return super(QuerySerializer, self).to_internal_value(data)
+            data._mutable = False
+            return super(QuerySerializer, self).to_internal_value(data)
+        except (TypeError, ValueError):
+            raise ValidationError({data['site_ids']: 'incorrect_type'})
