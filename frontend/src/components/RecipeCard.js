@@ -30,12 +30,12 @@ function RecipeCard(props) {
 
     return (
         <div>
-            <RecipeModal open={open} setClose={setClose} recipe={recipe} />
+            {open && <RecipeModal open={open} setClose={setClose} recipeId={recipe.id} />}
             <Card className={classes.root} onClick={() => {setOpen(true)}}>
                 <CardActionArea>
                     <CardMedia
                         className={classes.media}
-                        image={recipe.img}
+                        image={recipe.image_url}
                         title="Contemplative Reptile"
                     />
                     <CardContent>
@@ -45,9 +45,9 @@ function RecipeCard(props) {
                         <Typography gutterBottom variant="body1" component="h3" color="primary">
                             {recipe.category}
                         </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                            {recipe.instructions.substring(0, 150) + "..."}
-                        </Typography>
+                        {/*<Typography variant="body2" color="textSecondary" component="p">*/}
+                        {/*    {recipe.instructions.substring(0, 150) + "..."}*/}
+                        {/*</Typography>*/}
                     </CardContent>
                 </CardActionArea>
                 <CardActions>

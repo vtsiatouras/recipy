@@ -55,7 +55,7 @@ class RecipeSerializerShort(ModelSerializer):
 
     class Meta:
         model = Recipe
-        fields = ['id', 'url', 'name', 'image_url', 'site']
+        fields = ['id', 'url', 'name', 'category', 'image_url', 'site']
 
 
 class QuerySerializer(BaseSerializer):

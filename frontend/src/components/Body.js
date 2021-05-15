@@ -13,7 +13,8 @@ import arniPic from "../assets/arni.jpg";
 function ResultsInfo(props){
     const {search, size} = props;
     const body = search ?
-        <div>Found <span className="sub-color">{size}</span> tasty recipes</div> : <div> Some random results </div>;
+        <div>Found <span className="sub-color">{size}</span> tasty recipes</div> :
+        <div> Use <span className="sub-color">Search</span> to find Recipes </div>;
     return (
         <Typography variant="h4" component="h4" className="text-center">
             {body}
@@ -26,10 +27,6 @@ function Body(props) {
     console.log("rendering body with: ", search);
 
     const recipesContent = recipes.map(recipe => {
-        // --to-be-deleted
-        const imgId = Math.floor(Math.random() * 3);
-        recipe.img = imgId === 0 ? paidakiaPic : imgId === 1 ? arniPic : kotsiPic;
-
         return (
             <Grid item lg={3} md={4} sm={6} xs={12} key={recipe.id}>
                 <RecipeCard recipe={recipe}/>
