@@ -62,5 +62,5 @@ class QuerySerializer(BaseSerializer):
     """Serializer used for querying recipes
     """
     query = CharField(help_text='The query string to search recipes', required=True)
-    site_ids = ListField(help_text='Site IDs separated with comma', required=False)
+    site_ids = ListField(help_text='Site IDs separated with comma', required=True)
 
