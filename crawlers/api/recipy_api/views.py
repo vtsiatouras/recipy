@@ -36,7 +36,7 @@ class RecipeViewSet(viewsets.mixins.RetrieveModelMixin, viewsets.GenericViewSet)
     @action(
         methods=['get'], detail=False, url_path='getRecipes',
         pagination_class=pagination.Pagination,
-        serializer_class=serializers.RecipeSerializer,
+        serializer_class=serializers.RecipeSerializerShort,
     )
     def query_recipes(self, request):
         """Get recipes based on a query string
@@ -54,5 +54,5 @@ class RecipeViewSet(viewsets.mixins.RetrieveModelMixin, viewsets.GenericViewSet)
         )).distinct()
 
         page = self.paginate_queryset(self.filter_queryset(queryset=queryset))
-        serializer = serializers.RecipeSerializer(page, many=True)
+        serializer = serializers.RecipeSerializerShort(page, many=True)
         return Response(serializer.data)
