@@ -56,4 +56,4 @@ class RecipeViewSet(viewsets.mixins.RetrieveModelMixin, viewsets.GenericViewSet)
 
         page = self.paginate_queryset(self.filter_queryset(queryset=queryset))
         serializer = serializers.RecipeSerializerShort(page, many=True)
-        return Response(serializer.data)
+        return self.get_paginated_response(serializer.data)
