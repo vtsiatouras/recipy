@@ -60,5 +60,16 @@ services:
       - RECIPY_DATABASE_HOST=${RECIPY_DATABASE_HOST}
       - RECIPY_DATABASE_PORT=${RECIPY_DATABASE_PORT}
 
+  front:
+    container_name: front
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    command: npm start
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+
 volumes:
   postgres_data:
