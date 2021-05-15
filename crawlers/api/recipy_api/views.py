@@ -46,8 +46,9 @@ class RecipeViewSet(viewsets.mixins.RetrieveModelMixin, viewsets.GenericViewSet)
         query_params = serializers.QuerySerializer(data=self.request.query_params, context={'request': request})
         query_params.is_valid(raise_exception=True)
         data = query_params.validated_data
+        site_ids = data['site_ids'][0]
 
-        queryset = Recipe.objects.filter(Q(site_id__in=data['site_ids']) & (
+        queryset = Recipe.objects.filter(Q(site_id__in=site_ids) & (
                 Q(category__icontains=data['query']) |
                 Q(name__icontains=data['query']) |
                 Q(ingredients__description__icontains=data['query'])

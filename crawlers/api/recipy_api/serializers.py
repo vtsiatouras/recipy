@@ -62,5 +62,11 @@ class QuerySerializer(BaseSerializer):
     """Serializer used for querying recipes
     """
     query = CharField(help_text='The query string to search recipes', required=True)
-    site_ids = ListField(help_text='Site IDs separated with comma', required=True)
+    site_ids = ListField(help_text='Site IDs separated with comma', required=False)
 
+    def to_internal_value(self, data):
+        data._mutable = True
+        site_ids_data = data['site_ids']
+        data['site_ids'] = [int(site_id) for site_id in site_ids_data.split(',')]
+        data._mutable = False
+        return super(QuerySerializer, self).to_internal_value(data)
