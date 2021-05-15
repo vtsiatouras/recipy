@@ -1,4 +1,4 @@
-from rest_framework.serializers import ModelSerializer, Serializer, CharField, ListField
+from rest_framework.serializers import ModelSerializer, Serializer, CharField, ListField, ValidationError
 
 from .models import Recipe, Site, Ingredient
 
@@ -67,6 +67,9 @@ class QuerySerializer(BaseSerializer):
     def to_internal_value(self, data):
         data._mutable = True
         site_ids_data = data['site_ids']
-        data['site_ids'] = [int(site_id) for site_id in site_ids_data.split(',')]
+        try:
+            data['site_ids'] = [int(site_id) for site_id in site_ids_data.split(',')]
+        except ValueError as e:
+            raise ValidationError(e)
         data._mutable = False
         return super(QuerySerializer, self).to_internal_value(data)
