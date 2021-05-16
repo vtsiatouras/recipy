@@ -5,6 +5,7 @@ import FormGroup from "@material-ui/core/FormGroup";
 import Checkbox from "@material-ui/core/Checkbox";
 import withStyles from "@material-ui/core/styles/withStyles";
 import green from "@material-ui/core/colors/green";
+import Alert from "@material-ui/lab/Alert";
 
 const GreenCheckbox = withStyles({
     root: {
@@ -45,7 +46,7 @@ function Sites(props) {
 
 
 function Cover(props) {
-    const {search, onSearchChange, sites, setSiteCheckbox, fetchSearchRecipes} = props;
+    const {search, onSearchChange, sites, setSiteCheckbox, fetchSearchRecipes, alert} = props;
     const coverSize = search ? "5%" : "8%";
 
     return (
@@ -55,6 +56,10 @@ function Cover(props) {
             <p> Find different recipes from multiple sites.</p>
             <SearchBar onSearchChange={onSearchChange} fetchSearchRecipes={fetchSearchRecipes}/>
             <Sites sites={sites} setSiteCheckbox={setSiteCheckbox}/>
+
+            {alert.show && <div className="search-alert">
+                <Alert severity={alert.type}>{alert.msg}</Alert>
+            </div>}
         </div>
     );
 }

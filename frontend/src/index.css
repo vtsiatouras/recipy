@@ -43,12 +43,12 @@ body {
 .center-modal {
     margin: 0 auto;
     width: 85%;
-    padding: 1% 5%;
+    padding: 1% 2%;
     background-color: #282c34;
 }
 
 .modal-image {
-    border-radius: 50%;
+    /*border-radius: 50%;*/
     position: relative;
     top: 0;
 }
@@ -71,4 +71,11 @@ body {
     width: 25%;
     max-height: 200px;
     background-color: rgba(0, 0, 0, 0.5);
+}
+
+.search-alert {
+    width: 40%;
+    margin: auto;
+
+
 }

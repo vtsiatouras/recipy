@@ -15,22 +15,19 @@ import axios from "axios";
 import CenteredSpinner from "./CenteredSpinner";
 
 
-function IngredientList(props){
-    const { ingredients } = props;
-    return (
-        <div>{ingredients.map(ingr => {
-            const iconId = Math.floor(Math.random() * 4);
+function Ingredient(props){
+    const { ingredient } = props;
+    const iconId = Math.floor(Math.random() * 4);
             const icon = iconId === 0 ? faHamburger : iconId === 1 ? faPizzaSlice : iconId === 2 ? faDrumstickBite : faPepperHot;
-
             const faIcon = <FontAwesomeIcon icon={icon}/>;
+
             return (
                 <Grid item xs={3}>
-                    <p><span className="sub-color">{faIcon} </span> {ingr.ingredient} </p>
+                    <p><span className="sub-color">{faIcon} </span> {ingredient.description} </p>
                 </Grid>
-            )
-        })}</div>
-    );
+            );
 }
+
 function RecipeModal(props) {
     const {open, setClose, recipeId} = props;
     const [recipe, setRecipe] = useState({});
@@ -58,7 +55,8 @@ function RecipeModal(props) {
                 <Grid item xs={12}>
                     <h1 className="text-center sub-color">
                         {recipe.name}<br/>
-                        <img alt="recipe" src={recipe.image_url} width={350} height={350}
+                        {/*width={350} height={350}*/}
+                        <img alt="recipe" src={recipe.image_url}
                              className="modal-image text-center"/>
                     </h1>
                 </Grid>
@@ -74,7 +72,7 @@ function RecipeModal(props) {
                     <h3 className="sub-color text-center">Ingredients</h3>
                     <Container style={{width: "75%"}} className="some-space-please">
                         <Grid container spacing={1}>
-                            ingredientList
+                            {recipe.ingredients.map(ingredient => {return <Ingredient ingredient={ingredient}/>})}
                         </Grid>
                     </Container>
                 </Grid>

@@ -24,7 +24,6 @@ function ResultsInfo(props){
 
 function Body(props) {
     const {search, recipes} = props;
-    console.log("rendering body with: ", search);
 
     const recipesContent = recipes.map(recipe => {
         return (

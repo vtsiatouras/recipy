@@ -17,6 +17,7 @@ function App() {
     const [searchQuery, setSearchQuery] = useState("");
     const [spinner, setSpinner] = useState(false);
     const [sites, setSites] = useState([]);
+    const [alert, setAlert] = useState({show: false, type: "", msg: ""});
 
     useEffect(async () => {
         try {
@@ -28,6 +29,11 @@ function App() {
         }
     }, []);
 
+    function setUpAlert(type, message){
+        setAlert({show: true, type: type, msg: message});
+        setTimeout(() => setAlert({show: false, type: "", msg: ""}), 3000)
+    }
+
     const setSiteCheckbox = (id, value) => {
         const updatedSites = sites.map(site => {
             if (site.id == id) {
@@ -38,15 +44,19 @@ function App() {
         setSites(updatedSites)
     };
 
-
     const fetchSearchRecipes = async () => {
         console.log("fetch results for query: ", searchQuery);
+        const selectedSites = sites.filter(site=>{return site.ischecked});
+        if(selectedSites.length === 0 || searchQuery.length === 0){
+            setUpAlert("warning", "Bad request. Please provide a site and a query");
+            return;
+        }
+
+        const laSiteIds = selectedSites.map(site => {
+                return site.id
+        }).toString();
         setRecipes([]);
         setSpinner(true);
-        const laSiteIds = sites.map(site => {
-            return site.id
-        }).toString();
-        console.log(laSiteIds);
         try {
             const responce = await axios.get(
                 'http://localhost:8000/api/v1/recipes/getRecipes',
@@ -58,30 +68,22 @@ function App() {
             console.log(responce.data);
             setRecipes(responce.data.results);
             setSearch(true);
-            setSpinner(false);
         } catch (e) {
+            setUpAlert("danger", "Request failed.");
             console.log("Error on fetching recipes caught")
         }
-        // test only case --to-be-deleted
-        // setTimeout(
-        //     () => {
-        //         setRecipes(data);
-        //         setSearch(true);
-        //         setSpinner(false);
-        //     }, 3000
-        // )
+        setSpinner(false);
     };
 
     const onSearchChange = (e) => {
         const searchQuery = e.target.value;
-        console.log("onSearchChange: ", searchQuery);
         setSearchQuery(searchQuery)
     };
 
     return (
         <div>
             <Cover search={search} onSearchChange={onSearchChange} fetchSearchRecipes={fetchSearchRecipes}
-                   sites={sites} setSiteCheckbox={setSiteCheckbox}/>
+                   sites={sites} setSiteCheckbox={setSiteCheckbox} alert={alert}/>
             {spinner && <CenteredSpinner/>}
             {!spinner && <Body recipes={recipes} search={search}/>}
         </div>
