@@ -76,6 +76,11 @@ body {
 .search-alert {
     width: 40%;
     margin: auto;
+}
 
-
+.pagination-wrapper {
+    margin: auto;
+    padding: 40px 0;
+    color: white;
+    width: 20%;
 }
