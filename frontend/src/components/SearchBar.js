@@ -15,7 +15,7 @@ function SearchBar(props) {
                     <input type="email" className="form-control" onChange={onSearchChange} placeholder="Search for a recipe like: Sushi"/>
                 </Grid>
                 <Grid item xs={2}>
-                    <Button variant="contained" color="primary" onClick={fetchSearchRecipes}>
+                    <Button variant="contained" color="primary" onClick={() => fetchSearchRecipes(1)}>
                         <span className="sub-color"><FontAwesomeIcon icon={faSearch}/></span>Search
                     </Button>
                 </Grid>

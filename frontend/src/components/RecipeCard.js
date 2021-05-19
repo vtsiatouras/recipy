@@ -9,6 +9,9 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import RecipeModal from "./RecipeModal";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faUtensils} from "@fortawesome/free-solid-svg-icons";
+import Alert from "@material-ui/lab/Alert";
 
 
 const useStyles = makeStyles({
@@ -30,12 +33,12 @@ function RecipeCard(props) {
 
     return (
         <div>
-            <RecipeModal open={open} setClose={setClose} recipe={recipe} />
+            {open && <RecipeModal open={open} setClose={setClose} recipeId={recipe.id} />}
             <Card className={classes.root} onClick={() => {setOpen(true)}}>
                 <CardActionArea>
                     <CardMedia
                         className={classes.media}
-                        image={recipe.img}
+                        image={recipe.image_url}
                         title="Contemplative Reptile"
                     />
                     <CardContent>
@@ -45,9 +48,8 @@ function RecipeCard(props) {
                         <Typography gutterBottom variant="body1" component="h3" color="primary">
                             {recipe.category}
                         </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                            {recipe.instructions.substring(0, 150) + "..."}
-                        </Typography>
+                            <FontAwesomeIcon icon={faUtensils} style={{marginRight: "10px"}}/>
+                            <a href={recipe.site.url} style={{marginLeft: "10px"}} target="_blank">{recipe.site.name}</a>
                     </CardContent>
                 </CardActionArea>
                 <CardActions>

@@ -14,7 +14,7 @@ body {
 .cover {
     text-align: center;
     padding-top: 15%;
-    padding-bottom: 4%;
+    padding-bottom: 2%;
     height: 45%;
     background-image: url("./assets/background.jpg");
 }
@@ -43,16 +43,44 @@ body {
 .center-modal {
     margin: 0 auto;
     width: 85%;
-    padding: 1% 5%;
+    padding: 1% 2%;
     background-color: #282c34;
 }
 
 .modal-image {
-    border-radius: 50%;
+    /*border-radius: 50%;*/
     position: relative;
     top: 0;
 }
 
-.spinner-wrapper{
+.spinner-wrapper {
     margin-top: 10%;
+}
+
+.site-box-wrapper {
+    margin-top: 10px;
+}
+
+.site-box {
+    border: #86b300 2px solid;
+    border-radius: 5px;
+    margin: auto;
+    padding-top: 5px;
+    padding-left: 20px;
+    overflow: auto;
+    width: 25%;
+    max-height: 200px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.search-alert {
+    width: 40%;
+    margin: auto;
+}
+
+.pagination-wrapper {
+    margin: auto;
+    padding: 40px 0;
+    color: white;
+    width: 20%;
 }
