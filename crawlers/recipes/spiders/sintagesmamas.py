@@ -33,7 +33,8 @@ class SintagesmamasSpider(CrawlSpider):
         img_path = response.xpath('//*/img[@typeof="foaf:Image"]/@src').get()
         item.add_value('image_url', self.base_url + img_path if img_path else None)
 
-        ingredients = response.xpath('//*/div[contains(@class, "field--name-field-ingredients")]//li').getall()
+        ingredients = response.xpath('//*/div[contains(@class, "field--name-field-ingredients")]//li | ' +
+                                     '//div[contains(@class, "field--name-field-stage-ingredients")]/p/text()').getall()
         for ingredient in ingredients:
             ingredient = Selector(text=ingredient)
             il = IngredientItemLoader(selector=ingredient)
