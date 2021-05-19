@@ -5,12 +5,6 @@ import Typography from "@material-ui/core/Typography";
 
 import RecipeCard from "./RecipeCard";
 
-import kotsiPic from "../assets/kotsi.jpg";
-import paidakiaPic from "../assets/paidakia.jpg";
-import arniPic from "../assets/arni.jpg";
-import Pagination from "@material-ui/lab/Pagination";
-
-
 function ResultsInfo(props) {
     const {search, total} = props;
     const body = search ?
