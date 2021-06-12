@@ -26,7 +26,7 @@ Current target sites:
 - [dimitrisskarmoutsos.gr](https://www.dimitrisskarmoutsos.gr)
 - [suntages.me](https://www.syntages.me/syntages)
 - [sintagesmamas.com](https://www.sintagesmamas.com)
-- [www.argiro.gr/](https://www.argiro.gr/)
+- [argiro.gr](https://www.argiro.gr)
 
 ## Installation
 
